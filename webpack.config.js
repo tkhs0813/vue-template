@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
+const { VueLoaderPlugin } = require("vue-loader");
 const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
   const IS_DEVELOPMENT = argv.mode === 'development';
@@ -46,13 +46,13 @@ module.exports = (env, argv) => {
       minimizer: IS_DEVELOPMENT
         ? []
         : [
-            new TerserPlugin({
+          new TerserPlugin({
               terserOptions: {
                 compress: { drop_console: true },
               },
             }),
           ],
     },
-    plugins: [new HtmlWebpackPlugin()],
+    plugins: [ new VueLoaderPlugin()],
   };
 };
