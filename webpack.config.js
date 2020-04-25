@@ -1,28 +1,28 @@
-const webpack = require("webpack");
-const path = require("path");
-const { VueLoaderPlugin } = require("vue-loader");
-const TerserPlugin = require("terser-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
   const IS_DEVELOPMENT = argv.mode === 'development';
 
   return {
-    entry: "./src/app.js",
+    entry: './src/app.js',
     output: {
-      filename: "app.bundle.js",
-      path: path.resolve(__dirname, "dist"),
+      filename: 'app.bundle.js',
+      path: path.resolve(__dirname, 'dist'),
     },
     module: {
       rules: [
-        { test: /\.vue$/, use: [{loader: "vue-loader"}, {loader: "eslint-loader"}] },
-        { test: /\.js$/, exclude: /node_modules/, use: [{loader: "babel-loader"}, {loader: "eslint-loader"}]},
+        { test: /\.vue$/, use: [{ loader: 'vue-loader' }, { loader: 'eslint-loader' }] },
+        { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }] },
         {
           test: /\.sass$/,
           use: [
-            "vue-style-loader",
-            "css-loader",
+            'vue-style-loader',
+            'css-loader',
             {
-              loader: "sass-loader",
+              loader: 'sass-loader',
               options: {
                 indentedSyntax: true,
               },
@@ -32,12 +32,12 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
-      extensions: [".js", ".vue"],
+      extensions: ['.js', '.vue'],
     },
-    devtool: IS_DEVELOPMENT ? "source-map" : "none",
+    devtool: IS_DEVELOPMENT ? 'source-map' : 'none',
     devServer: {
       open: true,
-      contentBase: path.join(__dirname, "dist"),
+      contentBase: path.join(__dirname, 'dist'),
       watchContentBase: true,
       compress: true,
       port: 9000,
@@ -47,12 +47,12 @@ module.exports = (env, argv) => {
         ? []
         : [
           new TerserPlugin({
-              terserOptions: {
-                compress: { drop_console: true },
-              },
-            }),
-          ],
+            terserOptions: {
+              compress: { drop_console: true },
+            },
+          }),
+        ],
     },
-    plugins: [ new VueLoaderPlugin()],
+    plugins: [new VueLoaderPlugin()],
   };
 };
