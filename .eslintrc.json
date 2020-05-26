@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/strongly-recommended",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "plugins": ["vue", "prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

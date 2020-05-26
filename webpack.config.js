@@ -14,8 +14,8 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
-        { test: /\.vue$/, use: [{ loader: 'vue-loader' }, { loader: 'eslint-loader' }] },
-        { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }] },
+        { test: /\.vue$/, use: [{ loader: 'vue-loader' }, {loader: 'eslint-loader'}] },
+        { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }, {loader: 'eslint-loader'}] },
         {
           test: /\.sass$/,
           use: [
