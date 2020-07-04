@@ -7,15 +7,33 @@ module.exports = (env, argv) => {
   const IS_DEVELOPMENT = argv.mode === 'development';
 
   return {
-    entry: './src/app.js',
+    entry: './src/index.ts',
     output: {
       filename: 'app.bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
     module: {
       rules: [
-        { test: /\.vue$/, use: [{ loader: 'vue-loader' }, {loader: 'eslint-loader'}] },
-        { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }, {loader: 'eslint-loader'}] },
+        {
+          test: /\.vue$/,
+          use: [{ loader: 'vue-loader' }, { loader: 'eslint-loader' }],
+        },
+        {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                appendTsSuffixTo: [/\.vue$/],
+              },
+            },
+          ],
+        },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }],
+        },
         {
           test: /\.sass$/,
           use: [
@@ -29,10 +47,26 @@ module.exports = (env, argv) => {
             },
           ],
         },
+        {
+          test: /\.css$/i,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1, // importするときに適用するloaderの数を設定、sassとpostcssを使っていた場合は「2」と設定する
+              },
+            },
+            'postcss-loader',
+          ],
+        },
       ],
     },
     resolve: {
-      extensions: ['.js', '.vue'],
+      extensions: ['.js', '.ts', '.vue'],
+      alias: {
+        vue$: 'vue/dist/vue.esm.js',
+      },
     },
     devtool: IS_DEVELOPMENT ? 'source-map' : 'none',
     devServer: {
@@ -46,12 +80,12 @@ module.exports = (env, argv) => {
       minimizer: IS_DEVELOPMENT
         ? []
         : [
-          new TerserPlugin({
-            terserOptions: {
-              compress: { drop_console: true },
-            },
-          }),
-        ],
+            new TerserPlugin({
+              terserOptions: {
+                compress: { drop_console: true },
+              },
+            }),
+          ],
     },
     plugins: [new VueLoaderPlugin()],
   };

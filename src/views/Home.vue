@@ -1,14 +1,19 @@
 <template>
   <div>
-    <div>Home</div>
-    <div>aa</div>
+    <Navbar />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue';
+import Navbar from '../components/Navbar';
+
+export default Vue.extend({
   name: 'Home',
-};
+  components: {
+    Navbar,
+  },
+});
 </script>
 
 <style></style>
