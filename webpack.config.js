@@ -6,7 +6,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = (env, argv) => {
   const IS_DEVELOPMENT = argv.mode === 'development';
 
-  return {
+  const config = {
+    mode: IS_DEVELOPMENT ? 'development' : 'production',
     entry: './src/index.ts',
     output: {
       filename: 'app.bundle.js',
@@ -68,7 +69,6 @@ module.exports = (env, argv) => {
         vue$: 'vue/dist/vue.esm.js',
       },
     },
-    devtool: IS_DEVELOPMENT ? 'source-map' : 'none',
     devServer: {
       open: true,
       contentBase: path.join(__dirname, 'dist'),
@@ -89,4 +89,10 @@ module.exports = (env, argv) => {
     },
     plugins: [new VueLoaderPlugin()],
   };
+
+  if (IS_DEVELOPMENT) {
+    config.devtool = 'eval-source-map';
+  }
+
+  return config;
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen">
     <header
-      class="bg-gray-900 sm:flex sm:justify-between sm:items-center sm:px-2 sm:py-1"
+      class="bg-grey-700 sm:flex sm:justify-between sm:items-center sm:px-2 sm:py-1"
     >
       <div class="flex items-canter justify-between px-2 py-1 sm:p-0">
         <div>
@@ -56,7 +56,7 @@
       </div>
     </header>
     <div class="flex flex-1 h-full">
-      <nav class="bg-gray-400 w-64">
+      <nav class="bg-gray-200 w-64">
         <p>サイドバー</p>
       </nav>
       <main class="bg-gray-100 flex w-full">
